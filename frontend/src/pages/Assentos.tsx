@@ -1,5 +1,5 @@
-import { MapaAssentos } from "@/components/MapaAssentos";
-import { ViagemResumo } from "@/components/ViagemResumo";
+import { MapaAssentos } from "@/components/assentos/MapaAssentos";
+import { ViagemResumo } from "@/components/checkout/ViagemResumo";
 import { useAssentosPreload } from "@/hooks/useAssentosPreload";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Alert, Box, Button, CircularProgress, Grid, Stack, Typography } from "@mui/material";

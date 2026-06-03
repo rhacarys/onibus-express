@@ -1,5 +1,5 @@
-import { BuscaForm } from "@/components/BuscaForm";
-import { ViagemCard } from "@/components/ViagemCard";
+import { BuscaForm } from "@/components/busca/BuscaForm";
+import { ViagemCard } from "@/components/busca/ViagemCard";
 import { viagensService } from "@/services/viagensService";
 import { useBookingStore } from "@/store/useBookingStore";
 import type { BuscaFormInput } from "@/types/search";

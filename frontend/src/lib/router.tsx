@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import { Layout } from "@/components/ui/Layout";
 import Assentos from "@/pages/Assentos";
 import Busca from "@/pages/Busca";
 import Checkout from "@/pages/Checkout";

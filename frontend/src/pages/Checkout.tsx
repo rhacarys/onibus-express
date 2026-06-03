@@ -1,5 +1,5 @@
-import { PassengerForm } from "@/components/PassengerForm";
-import { ViagemResumo } from "@/components/ViagemResumo";
+import { PassengerForm } from "@/components/checkout/PassengerForm";
+import { ViagemResumo } from "@/components/checkout/ViagemResumo";
 import { useCheckout } from "@/hooks/useCheckout";
 import { viagensService } from "@/services/viagensService";
 import { ArrowBack, CheckCircleOutlined, ConfirmationNumber } from "@mui/icons-material";
