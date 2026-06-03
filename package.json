@@ -1,12 +1,10 @@
 {
   "name": "onibus-express",
   "version": "1.0.0",
-  "description": "",
+  "description": "OniBus Express - Sistema de Venda de Passagens Rodoviárias.",
   "main": "index.js",
   "scripts": {
-    "dev:frontend": "pnpm --filter frontend dev",
-    "dev:backend": "pnpm --filter backend start",
-    "dev": "concurrently \"pnpm dev:backend\" \"pnpm dev:frontend\"",
+    "dev": "pnpm --filter frontend dev",
     "test": "pnpm --filter frontend test"
   },
   "keywords": [],
@@ -19,8 +17,5 @@
       "onFail": "download"
     }
   },
-  "type": "module",
-  "devDependencies": {
-    "concurrently": "^10.0.3"
-  }
+  "type": "module"
 }

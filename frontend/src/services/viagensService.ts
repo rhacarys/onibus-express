@@ -1,24 +1,19 @@
 import { api } from "@/services/api";
-import type { Rota, ViagemDetalhada } from "@/types";
+import type { ViagemDetalhada } from "@/types";
 
 export const viagensService = {
-  getRotas: async (): Promise<Rota[]> => {
-    const { data } = await api.get<Rota[]>("/rotas");
-    return data;
-  },
-
   getViagens: async (origem?: string, destino?: string, dataIda?: string): Promise<ViagemDetalhada[]> => {
     const params = new URLSearchParams();
-    if (origem) params.append("rota.origem_like", origem);
-    if (destino) params.append("rota.destino_like", destino);
-    if (dataIda) params.append("dataPartida_like", dataIda);
+    if (origem) params.append("origem", origem);
+    if (destino) params.append("destino", destino);
+    if (dataIda) params.append("dataPartida", dataIda);
 
-    const { data } = await api.get<ViagemDetalhada[]>("/viagens?_expand=rota", { params });
+    const { data } = await api.get<ViagemDetalhada[]>("/viagens", { params });
     return data;
   },
 
   getViagemById: async (id: string): Promise<ViagemDetalhada> => {
-    const { data } = await api.get<ViagemDetalhada>(`/viagens/${id}?_expand=rota`);
+    const { data } = await api.get<ViagemDetalhada>(`/viagens/${id}`);
     return data;
   },
 };
