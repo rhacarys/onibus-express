@@ -1,9 +1,10 @@
 import { PassengerForm } from "@/components/checkout/PassengerForm";
+import { SucessoReserva } from "@/components/checkout/SucessoReserva";
 import { ViagemResumo } from "@/components/checkout/ViagemResumo";
 import { useCheckout } from "@/hooks/useCheckout";
 import { viagensService } from "@/services/viagensService";
-import { ArrowBack, CheckCircleOutlined, ConfirmationNumber } from "@mui/icons-material";
-import { Alert, Box, Button, CircularProgress, Divider, Grid, Paper, Stack, Typography } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
+import { Alert, Box, Button, CircularProgress, Grid, Paper, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import type { JSX } from "react";
 import { useEffect } from "react";
@@ -20,7 +21,6 @@ export default function Checkout(): JSX.Element {
     handleNovaBusca,
   } = useCheckout();
 
-  // Se o usuário acessar a rota diretamente sem ter passado pelas telas anteriores
   useEffect(() => {
     if (!viagemId || !assentoSelecionado) {
       handleNovaBusca();
@@ -30,7 +30,7 @@ export default function Checkout(): JSX.Element {
   const { data: viagem, isLoading: loadingViagem } = useQuery({
     queryKey: ["viagem", viagemId],
     queryFn: () => viagensService.getViagemById(viagemId!),
-    enabled: !!viagemId && !reservaConfirmada, // Só busca se não tiver concluído
+    enabled: !!viagemId && !reservaConfirmada,
   });
 
   if (!viagemId || !assentoSelecionado) return <Box />;
@@ -43,56 +43,10 @@ export default function Checkout(): JSX.Element {
     );
   }
 
-  // --- TELA DE SUCESSO ---
   if (reservaConfirmada) {
-    return (
-      <Stack sx={{ gap: 4, alignItems: "center", py: 6 }}>
-        <CheckCircleOutlined color="success" sx={{ fontSize: 80 }} />
-        <Typography variant="h4" sx={{ fontWeight: "bold", textAlign: "center" }}>
-          Reserva Confirmada!
-        </Typography>
-
-        <Paper
-          variant="outlined"
-          sx={{ p: 4, width: "100%", maxWidth: 500, backgroundColor: (theme) => theme.palette.background.paper }}
-        >
-          <Typography variant="subtitle2" color="text.secondary" sx={{ textTransform: "uppercase", letterSpacing: 1 }}>
-            Código Localizador
-          </Typography>
-          <Typography variant="h3" color="primary" sx={{ fontWeight: "bold", mb: 3 }}>
-            {reservaConfirmada.codigoReserva}
-          </Typography>
-
-          <Divider sx={{ my: 2 }} />
-
-          <Grid container spacing={2}>
-            <Grid size={{ xs: 6 }}>
-              <Typography variant="body2" color="text.secondary">
-                Passageiro
-              </Typography>
-              <Typography variant="body1" sx={{ fontWeight: "medium" }}>
-                {reservaConfirmada.passageiro.nome}
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 6 }}>
-              <Typography variant="body2" color="text.secondary">
-                Assento
-              </Typography>
-              <Typography variant="body1" sx={{ fontWeight: "medium" }}>
-                Poltrona {reservaConfirmada.assento}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Paper>
-
-        <Button variant="outlined" onClick={handleNovaBusca} startIcon={<ConfirmationNumber />}>
-          Comprar Nova Passagem
-        </Button>
-      </Stack>
-    );
+    return <SucessoReserva reserva={reservaConfirmada} onNovaBusca={handleNovaBusca} />;
   }
 
-  // --- TELA DE CHECKOUT (Padrão) ---
   return (
     <Stack sx={{ gap: 4 }}>
       <Button startIcon={<ArrowBack />} onClick={handleVoltar} sx={{ alignSelf: "flex-start" }}>
