@@ -1,27 +1,22 @@
 import { create } from "zustand";
-
-interface Passenger {
-  nome: string;
-  cpf: string;
-  email: string;
-}
+import type { Passageiro } from "../types";
 
 interface BookingState {
   viagemId: string | null;
   assentoSelecionado: number | null;
-  passenger: Passenger | null;
+  passageiro: Passageiro | null;
   setViagemId: (id: string | null) => void;
   setAssento: (assento: number | null) => void;
-  setPassenger: (passenger: Passenger | null) => void;
+  setPassageiro: (passageiro: Passageiro | null) => void;
   resetBooking: () => void;
 }
 
 export const useBookingStore = create<BookingState>((set) => ({
   viagemId: null,
   assentoSelecionado: null,
-  passenger: null,
+  passageiro: null,
   setViagemId: (id) => set({ viagemId: id }),
   setAssento: (assento) => set({ assentoSelecionado: assento }),
-  setPassenger: (passenger) => set({ passenger }),
-  resetBooking: () => set({ viagemId: null, assentoSelecionado: null, passenger: null }),
+  setPassageiro: (passageiro) => set({ passageiro }),
+  resetBooking: () => set({ viagemId: null, assentoSelecionado: null, passageiro: null }),
 }));
