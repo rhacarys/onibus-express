@@ -1,7 +1,7 @@
+import type { ViagemDetalhada } from "@/types";
 import { ConfirmationNumber, Event } from "@mui/icons-material";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import type { JSX } from "react";
-import type { ViagemDetalhada } from "../types";
 
 interface ViagemResumoProps {
   viagem: ViagemDetalhada;

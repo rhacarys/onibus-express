@@ -1,5 +1,5 @@
-import { api } from "./api";
-import type { ViagemDetalhada, Rota } from "../types";
+import { api } from "@/services/api";
+import type { Rota, ViagemDetalhada } from "@/types";
 
 export const viagensService = {
   getRotas: async (): Promise<Rota[]> => {

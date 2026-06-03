@@ -1,9 +1,9 @@
+import { Layout } from "@/components/Layout";
+import Assentos from "@/pages/Assentos";
+import Busca from "@/pages/Busca";
+import Checkout from "@/pages/Checkout";
+import Consulta from "@/pages/Consulta";
 import { createBrowserRouter } from "react-router-dom";
-import { Layout } from "../components/Layout";
-import Busca from "../pages/Busca";
-import Assentos from "../pages/Assentos";
-import Checkout from "../pages/Checkout";
-import Consulta from "../pages/Consulta";
 
 export const router = createBrowserRouter([
   {

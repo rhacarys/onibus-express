@@ -1,7 +1,7 @@
+import { gerarFileirasOnibus } from "@/utils/busLayout";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import type { JSX } from "react";
 import { Fragment } from "react";
-import { gerarFileirasOnibus } from "../utils/busLayout";
 
 interface MapaAssentosProps {
   capacidade: number;

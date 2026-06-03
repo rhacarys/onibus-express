@@ -1,14 +1,13 @@
+import { BuscaForm } from "@/components/BuscaForm";
+import { ViagemCard } from "@/components/ViagemCard";
+import { viagensService } from "@/services/viagensService";
+import { useBookingStore } from "@/store/useBookingStore";
+import type { BuscaFormInput } from "@/types/search";
 import { Alert, Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import type { JSX } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { BuscaForm } from "../components/BuscaForm";
-import { ViagemCard } from "../components/ViagemCard";
-import { viagensService } from "../services/viagensService";
-import { useBookingStore } from "../store/useBookingStore";
-import type { BuscaFormInput } from "../types/search";
 
 export default function Busca(): JSX.Element {
   const navigate = useNavigate();

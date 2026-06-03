@@ -1,7 +1,7 @@
+import type { ViagemDetalhada } from "@/types";
 import { Event, EventSeat } from "@mui/icons-material";
 import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
 import type { JSX } from "react";
-import type { ViagemDetalhada } from "../types";
 
 interface ViagemCardProps {
   viagem: ViagemDetalhada;

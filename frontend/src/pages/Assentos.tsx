@@ -1,11 +1,10 @@
+import { MapaAssentos } from "@/components/MapaAssentos";
+import { ViagemResumo } from "@/components/ViagemResumo";
+import { useAssentosPreload } from "@/hooks/useAssentosPreload";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Alert, Box, Button, CircularProgress, Grid, Stack, Typography } from "@mui/material";
 import type { JSX } from "react";
 import { useParams } from "react-router-dom";
-
-import { MapaAssentos } from "../components/MapaAssentos";
-import { ViagemResumo } from "../components/ViagemResumo";
-import { useAssentosPreload } from "../hooks/useAssentosPreload";
 
 export default function Assentos(): JSX.Element {
   const { id } = useParams<{ id: string }>();

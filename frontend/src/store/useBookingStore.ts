@@ -1,5 +1,5 @@
+import type { Passageiro } from "@/types";
 import { create } from "zustand";
-import type { Passageiro } from "../types";
 
 interface BookingState {
   viagemId: string | null;

@@ -1,8 +1,8 @@
+import { reservasService } from "@/services/reservasService";
+import { viagensService } from "@/services/viagensService";
+import { useBookingStore } from "@/store/useBookingStore";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { reservasService } from "../services/reservasService";
-import { viagensService } from "../services/viagensService";
-import { useBookingStore } from "../store/useBookingStore";
 
 export function useAssentosPreload(viagemId: string | undefined) {
   const navigate = useNavigate();

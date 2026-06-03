@@ -1,10 +1,10 @@
+import type { BuscaFormInput } from "@/types/search";
+import { BuscaFormSchema } from "@/types/search";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search } from "@mui/icons-material";
 import { Box, Button, Card, CardContent, Grid, TextField, Typography } from "@mui/material";
 import type { JSX } from "react";
 import { useForm } from "react-hook-form";
-import type { BuscaFormInput } from "../types/search";
-import { BuscaFormSchema } from "../types/search";
 
 interface BuscaFormProps {
   onSearch: (data: BuscaFormInput) => void;

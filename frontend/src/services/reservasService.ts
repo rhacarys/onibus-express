@@ -1,5 +1,5 @@
-import type { CriarReservaDTO, Reserva } from "../types";
-import { api } from "./api";
+import { api } from "@/services/api";
+import type { CriarReservaDTO, Reserva } from "@/types";
 
 export const reservasService = {
   criarReserva: async (dto: CriarReservaDTO): Promise<Reserva> => {
