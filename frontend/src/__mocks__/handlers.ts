@@ -6,8 +6,8 @@ const rotas: Rota[] = [
   { id: "2", origem: "Campinas", destino: "Barueri", duracaoEstimada: "01:30" },
   { id: "3", origem: "Barueri", destino: "Sorocaba", duracaoEstimada: "01:15" },
   { id: "4", origem: "Sorocaba", destino: "Barueri", duracaoEstimada: "01:15" },
-  { id: "5", origem: "Campinas", destino: "Sorocaba", duracaoEstimada: "01:45" },
-  { id: "6", origem: "Sorocaba", destino: "Campinas", duracaoEstimada: "01:45" },
+  { id: "5", origem: "Barueri", destino: "Campinas", duracaoEstimada: "01:30" },
+  { id: "6", origem: "Campinas", destino: "Barueri", duracaoEstimada: "01:30" },
 ];
 
 const viagensTemplate = [
@@ -15,8 +15,8 @@ const viagensTemplate = [
   { id: "102", rotaId: "2", horaPartida: "09:30:00Z", preco: 45.0, capacidade: 46 },
   { id: "103", rotaId: "3", horaPartida: "13:00:00Z", preco: 38.5, capacidade: 46 },
   { id: "104", rotaId: "4", horaPartida: "16:15:00Z", preco: 38.5, capacidade: 46 },
-  { id: "105", rotaId: "5", horaPartida: "19:00:00Z", preco: 52.0, capacidade: 46 },
-  { id: "106", rotaId: "6", horaPartida: "21:45:00Z", preco: 52.0, capacidade: 46 },
+  { id: "105", rotaId: "5", horaPartida: "20:00:00Z", preco: 53.0, capacidade: 42 },
+  { id: "106", rotaId: "6", horaPartida: "23:30:00Z", preco: 53.0, capacidade: 42 },
 ];
 
 const reservas: Reserva[] = [];
