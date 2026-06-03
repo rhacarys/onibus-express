@@ -7,12 +7,12 @@ import { useForm } from "react-hook-form";
 import type { Passageiro } from "@/types";
 import { PassageiroSchema } from "@/types";
 
-interface PassengerFormProps {
+interface PassageiroFormProps {
   onSubmit: (data: Passageiro) => void;
   isPending: boolean;
 }
 
-export function PassengerForm({ onSubmit, isPending }: PassengerFormProps): JSX.Element {
+export function PassageiroForm({ onSubmit, isPending }: PassageiroFormProps): JSX.Element {
   const {
     register,
     handleSubmit,

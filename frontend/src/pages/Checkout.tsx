@@ -1,4 +1,4 @@
-import { PassengerForm } from "@/components/checkout/PassengerForm";
+import { PassageiroForm } from "@/components/checkout/PassageiroForm";
 import { SucessoReserva } from "@/components/checkout/SucessoReserva";
 import { ViagemResumo } from "@/components/checkout/ViagemResumo";
 import { useCheckout } from "@/hooks/useCheckout";
@@ -59,7 +59,7 @@ export default function Checkout(): JSX.Element {
 
       <Grid container spacing={4} sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}>
         <Grid size={{ xs: 12, md: 7 }}>
-          <PassengerForm onSubmit={submitReserva} isPending={isPending} />
+          <PassageiroForm onSubmit={submitReserva} isPending={isPending} />
         </Grid>
 
         <Grid size={{ xs: 12, md: 5 }}>
