@@ -26,7 +26,7 @@ export default function Busca(): JSX.Element {
       {viagens && viagens.length > 0 && (
         <Stack sx={{ gap: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-            Horários Disponíveis encontrados no Sistema
+            Horários disponíveis para esta data
           </Typography>
           {viagens.map((viagem) => (
             <ViagemCard key={viagem.id} viagem={viagem} onSelect={handleSelectViagem} />

@@ -2,9 +2,10 @@ import { reservasService } from "@/services/reservasService";
 import { viagensService } from "@/services/viagensService";
 import { useBookingStore } from "@/store/useBookingStore";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export function useAssentosPreload(viagemId: string | undefined) {
+export function useAssentosPreload() {
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { assentoSelecionado, setAssento } = useBookingStore();
 
@@ -13,24 +14,18 @@ export function useAssentosPreload(viagemId: string | undefined) {
     isLoading: loadingViagem,
     error: errorViagem,
   } = useQuery({
-    queryKey: ["viagem", viagemId],
-    queryFn: () => viagensService.getViagemById(viagemId!),
-    enabled: !!viagemId,
+    queryKey: ["viagem", id],
+    queryFn: () => viagensService.getViagemById(id!),
+    enabled: !!id,
   });
 
-  const {
-    data: reservas,
-    isLoading: loadingReservas,
-    error: errorReservas,
-  } = useQuery({
-    queryKey: ["reservas-ocupadas", viagemId],
-    queryFn: () => reservasService.getReservasByViagemId(viagemId!),
-    enabled: !!viagemId,
+  const { data: reservas, isLoading: loadingReservas } = useQuery({
+    queryKey: ["reservas", id],
+    queryFn: () => reservasService.getReservasByViagemId(id!),
+    enabled: !!id,
   });
 
   const assentosOcupados = reservas ? reservas.map((r) => r.assento) : [];
-  const isLoading = loadingViagem || loadingReservas;
-  const hasError = errorViagem || errorReservas || !viagemId;
 
   const handleProsseguir = (): void => {
     if (assentoSelecionado) {
@@ -42,9 +37,9 @@ export function useAssentosPreload(viagemId: string | undefined) {
     viagem,
     assentosOcupados,
     assentoSelecionado,
+    isLoading: loadingViagem || loadingReservas,
+    error: errorViagem,
     setAssento,
-    isLoading,
-    hasError,
     handleProsseguir,
     handleVoltar: () => navigate("/"),
   };

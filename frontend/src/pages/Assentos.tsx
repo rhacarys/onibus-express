@@ -1,32 +1,36 @@
 import { MapaAssentos } from "@/components/assentos/MapaAssentos";
 import { ViagemResumo } from "@/components/checkout/ViagemResumo";
 import { useAssentosPreload } from "@/hooks/useAssentosPreload";
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import { ArrowBack, ChevronRight } from "@mui/icons-material";
 import { Alert, Box, Button, CircularProgress, Grid, Stack, Typography } from "@mui/material";
 import type { JSX } from "react";
-import { useParams } from "react-router-dom";
 
 export default function Assentos(): JSX.Element {
-  const { id } = useParams<{ id: string }>();
+  const { viagem, assentosOcupados, assentoSelecionado, isLoading, error, setAssento, handleProsseguir, handleVoltar } =
+    useAssentosPreload();
 
-  const {
-    viagem,
-    assentosOcupados,
-    assentoSelecionado,
-    setAssento,
-    isLoading,
-    hasError,
-    handleProsseguir,
-    handleVoltar,
-  } = useAssentosPreload(id);
-
-  if (isLoading)
+  if (isLoading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
         <CircularProgress />
       </Box>
     );
-  if (hasError || !viagem) return <Alert severity="error">Erro ao carregar os dados dos assentos.</Alert>;
+  }
+
+  if (error || !viagem) {
+    return (
+      <Alert
+        severity="error"
+        action={
+          <Button color="inherit" onClick={handleVoltar}>
+            Voltar
+          </Button>
+        }
+      >
+        Não foi possível carregar o mapa de assentos desta viagem.
+      </Alert>
+    );
+  }
 
   return (
     <Stack sx={{ gap: 4 }}>
@@ -38,22 +42,7 @@ export default function Assentos(): JSX.Element {
         Selecione sua Poltrona
       </Typography>
 
-      <Grid container spacing={3}>
-        <Grid size={{ xs: 12, md: 4 }}>
-          <ViagemResumo viagem={viagem} />
-          <Button
-            fullWidth
-            variant="contained"
-            color="secondary"
-            size="large"
-            endIcon={<ArrowForward />}
-            disabled={!assentoSelecionado}
-            onClick={handleProsseguir}
-            sx={{ mt: 3 }}
-          >
-            Prosseguir para Identificação
-          </Button>
-        </Grid>
+      <Grid container spacing={4}>
         <Grid size={{ xs: 12, md: 8 }}>
           <MapaAssentos
             capacidade={viagem.capacidade}
@@ -61,6 +50,25 @@ export default function Assentos(): JSX.Element {
             assentoSelecionado={assentoSelecionado}
             onSelectAssento={setAssento}
           />
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 4 }}>
+          <Stack sx={{ gap: 3 }}>
+            <ViagemResumo viagem={viagem} />
+
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              size="large"
+              disabled={!assentoSelecionado}
+              onClick={handleProsseguir}
+              endIcon={<ChevronRight />}
+              sx={{ height: 56, fontWeight: "bold" }}
+            >
+              Continuar
+            </Button>
+          </Stack>
         </Grid>
       </Grid>
     </Stack>
