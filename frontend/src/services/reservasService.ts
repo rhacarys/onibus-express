@@ -1,5 +1,5 @@
+import type { CriarReservaDTO, Reserva } from "../types";
 import { api } from "./api";
-import type { Reserva, CriarReservaDTO } from "../types";
 
 export const reservasService = {
   criarReserva: async (dto: CriarReservaDTO): Promise<Reserva> => {
@@ -15,6 +15,11 @@ export const reservasService = {
   getReservaByCodigo: async (codigo: string): Promise<Reserva | null> => {
     const { data } = await api.get<Reserva[]>(`/reservas?codigoReserva=${codigo}`);
     return data.length > 0 ? data[0] : null;
+  },
+
+  getReservasByViagemId: async (viagemId: string): Promise<Reserva[]> => {
+    const { data } = await api.get<Reserva[]>(`/reservas?viagemId=${viagemId}&status=confirmada`);
+    return data;
   },
 
   cancelarReserva: async (id: string): Promise<Reserva> => {

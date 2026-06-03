@@ -15,6 +15,7 @@ export const ViagemSchema = z.object({
   rotaId: z.string(),
   dataPartida: z.string().datetime(),
   preco: z.number().positive(),
+  capacidade: z.number().int().positive(),
   assentosDisponiveis: z.number().int().nonnegative(),
 });
 
