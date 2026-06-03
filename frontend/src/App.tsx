@@ -1,7 +1,6 @@
+import { RouterProvider } from "react-router-dom";
+import { router } from "./lib/router";
+
 export default function App() {
-  return (
-    <div>
-      <h1>OniBus Express</h1>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
