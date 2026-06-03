@@ -35,20 +35,21 @@ export const handlers = [
     const url = new URL(request.url);
     const origem = url.searchParams.get("origem")?.toLowerCase();
     const destino = url.searchParams.get("destino")?.toLowerCase();
-    const dataPartida = url.searchParams.get("dataPartida"); // Formato YYYY-MM-DD
+    const dataPartida = url.searchParams.get("dataPartida");
 
     const resultado: ViagemDetalhada[] = viagensTemplate
       .map((v) => {
         const rotaCompleta = rotas.find((r) => r.id === v.rotaId)!;
-        // Injeta dinamicamente o dia buscado na string de partida para simular o comportamento diário
         const dataPartidaSimulada = dataPartida ? `${dataPartida}T${v.horaPartida}` : `2026-06-03T${v.horaPartida}`;
+
+        const assentosOcupadosCount = reservas.filter((r) => r.viagemId === v.id && r.status === "confirmada").length;
 
         return {
           id: v.id,
           rotaId: v.rotaId,
           preco: v.preco,
           capacidade: v.capacidade,
-          assentosDisponiveis: v.capacidade - reservas.filter((r) => r.viagemId === v.id).length,
+          assentosDisponiveis: v.capacidade - assentosOcupadosCount,
           dataPartida: dataPartidaSimulada,
           rota: rotaCompleta,
         };
@@ -69,12 +70,14 @@ export const handlers = [
     if (!template) return new HttpResponse(null, { status: 404 });
 
     const rota = rotas.find((r) => r.id === template.rotaId)!;
+    const assentosOcupadosCount = reservas.filter((r) => r.viagemId === id && r.status === "confirmada").length;
+
     return HttpResponse.json({
       id: template.id,
       rotaId: template.rotaId,
       preco: template.preco,
       capacidade: template.capacidade,
-      assentosDisponiveis: template.capacidade - reservas.filter((r) => r.viagemId === id).length,
+      assentosDisponiveis: template.capacidade - assentosOcupadosCount,
       dataPartida: `2026-06-15T${template.horaPartida}`,
       rota,
     });
@@ -84,20 +87,41 @@ export const handlers = [
   http.get("/api/v1/reservas", ({ request }) => {
     const url = new URL(request.url);
     const viagemId = url.searchParams.get("viagemId");
-    const resultado = reservas.filter((r) => r.viagemId === viagemId);
-    return HttpResponse.json(resultado);
+    const codigoReserva = url.searchParams.get("codigoReserva");
+
+    if (codigoReserva) {
+      const filtrado = reservas.filter((r) => r.codigoReserva === codigoReserva.toUpperCase());
+      return HttpResponse.json(filtrado);
+    }
+
+    const filtrado = reservas.filter((r) => r.viagemId === viagemId);
+    return HttpResponse.json(filtrado);
   }),
 
   // POST /api/v1/reservas
   http.post("/api/v1/reservas", async ({ request }) => {
     const body = (await request.json()) as Omit<Reserva, "id" | "status" | "codigoReserva">;
+
     const novaReserva: Reserva = {
       id: crypto.randomUUID(),
       ...body,
       status: "confirmada",
       codigoReserva: `ONB-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
     };
+
     reservas.push(novaReserva);
     return HttpResponse.json(novaReserva, { status: 201 });
+  }),
+
+  // PATCH /api/v1/reservas/:id
+  http.patch("/api/v1/reservas/:id", async ({ params, request }) => {
+    const { id } = params;
+    const body = (await request.json()) as { status: "confirmada" | "cancelada" };
+
+    const index = reservas.findIndex((r) => r.id === id);
+    if (index === -1) return new HttpResponse(null, { status: 404 });
+
+    reservas[index] = { ...reservas[index], status: body.status };
+    return HttpResponse.json(reservas[index]);
   }),
 ];

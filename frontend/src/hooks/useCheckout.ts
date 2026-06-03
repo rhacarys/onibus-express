@@ -1,3 +1,4 @@
+import { queryClient } from "@/lib/queryClient";
 import { reservasService } from "@/services/reservasService";
 import { useBookingStore } from "@/store/useBookingStore";
 import type { CriarReservaDTO, Passageiro, Reserva } from "@/types";
@@ -26,6 +27,8 @@ export function useCheckout() {
     onSuccess: (data) => {
       setReservaConfirmada(data);
       resetBooking();
+      queryClient.invalidateQueries({ queryKey: ["reservas", viagemId] });
+      queryClient.invalidateQueries({ queryKey: ["viagens"] });
     },
   });
 
