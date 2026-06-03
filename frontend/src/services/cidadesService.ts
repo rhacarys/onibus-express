@@ -1,4 +1,4 @@
-import { api } from "@/services/api";
+import { httpClient } from "@/lib/httpClient";
 
 interface CidadesResponse {
   origens: string[];
@@ -7,7 +7,6 @@ interface CidadesResponse {
 
 export const cidadesService = {
   getAvailableCidades: async (): Promise<CidadesResponse> => {
-    const { data } = await api.get<CidadesResponse>("/cidades");
-    return data;
+    return httpClient.get<CidadesResponse>("/cidades");
   },
 };

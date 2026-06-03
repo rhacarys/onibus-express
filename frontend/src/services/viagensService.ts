@@ -1,4 +1,4 @@
-import { api } from "@/services/api";
+import { httpClient } from "@/lib/httpClient";
 import type { ViagemDetalhada } from "@/types";
 
 export const viagensService = {
@@ -8,12 +8,10 @@ export const viagensService = {
     if (destino) params.append("destino", destino);
     if (dataIda) params.append("dataPartida", dataIda);
 
-    const { data } = await api.get<ViagemDetalhada[]>("/viagens", { params });
-    return data;
+    return httpClient.get<ViagemDetalhada[]>("/viagens", { params });
   },
 
   getViagemById: async (id: string): Promise<ViagemDetalhada> => {
-    const { data } = await api.get<ViagemDetalhada>(`/viagens/${id}`);
-    return data;
+    return httpClient.get<ViagemDetalhada>(`/viagens/${id}`);
   },
 };
