@@ -1,0 +1,11 @@
+{
+  "rotas": [
+    { "id": "1", "origem": "São Paulo", "destino": "Rio de Janeiro", "duracaoEstimada": "06:00" },
+    { "id": "2", "origem": "Curitiba", "destino": "Florianópolis", "duracaoEstimada": "04:30" }
+  ],
+  "viagens": [
+    { "id": "1", "rotaId": "1", "dataPartida": "2026-06-10T08:00:00Z", "preco": 120.5, "assentosDisponiveis": 40 },
+    { "id": "2", "rotaId": "2", "dataPartida": "2026-06-12T14:00:00Z", "preco": 85.0, "assentosDisponiveis": 42 }
+  ],
+  "reservas": []
+}
