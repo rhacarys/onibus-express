@@ -40,11 +40,11 @@ export function MapaAssentos({
 
               return (
                 <Fragment key={numero}>
-                  {/* Corredor antes do terceiro assento (índice 2) */}
                   {cIdx === 2 && <Box />}
 
                   {existeAssento ? (
                     <Button
+                      aria-label={`poltrona ${numero}`}
                       variant={assentoSelecionado === numero ? "contained" : "outlined"}
                       color={
                         assentosOcupados.includes(numero)
