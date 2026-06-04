@@ -3,6 +3,9 @@ import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 import { AppProvider } from "@/providers/AppProvider";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
 
 async function enableMocking() {
   if (import.meta.env.MODE !== "development") return;
