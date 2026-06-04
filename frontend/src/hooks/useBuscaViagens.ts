@@ -1,5 +1,5 @@
 import { viagensService } from "@/services/viagensService";
-import { useBookingStore } from "@/store/useBookingStore";
+import { useReservaStore } from "@/store/useReservaStore";
 import type { BuscaFormInput } from "@/types/search";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export function useBuscaViagens() {
   const navigate = useNavigate();
-  const setViagemId = useBookingStore((state) => state.setViagemId);
+  const setViagemId = useReservaStore((state) => state.setViagemId);
   const [filters, setFilters] = useState<BuscaFormInput | null>(null);
 
   const {
