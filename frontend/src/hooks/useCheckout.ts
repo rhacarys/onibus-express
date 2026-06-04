@@ -27,7 +27,7 @@ export function useCheckout() {
       return reservasService.criarReserva(dto);
     },
     onSuccess: (data) => {
-      showToast("Reserva confirmada com sucesso!", "success");
+      showToast(`Reserva confirmada com sucesso! Código: ${data.codigoReserva}`, "success");
       setReservaConfirmada(data);
       resetReserva();
       queryClient.invalidateQueries({ queryKey: ["reservas", viagemId] });
