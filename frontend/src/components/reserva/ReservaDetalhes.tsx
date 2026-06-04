@@ -1,4 +1,5 @@
 import type { Reserva } from "@/types/reserva";
+import { formatarCPF } from "@/utils/formatters";
 import { CancelOutlined } from "@mui/icons-material";
 import { Box, Button, Card, CardContent, Chip, Divider, Grid, Typography } from "@mui/material";
 import { useState } from "react";
@@ -40,7 +41,7 @@ export function ReservaDetalhes({ reserva, isCancelando, onCancelar }: ReservaDe
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
               <Typography variant="body2">CPF</Typography>
-              <Typography variant="body1">{reserva.passageiro.cpf}</Typography>
+              <Typography variant="body1">{formatarCPF(reserva.passageiro.cpf)}</Typography>
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
               <Typography variant="body2">ID da Viagem</Typography>
