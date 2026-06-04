@@ -59,7 +59,7 @@ export default function Checkout(): JSX.Element {
 
       <Grid container spacing={4} sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}>
         <Grid size={{ xs: 12, md: 7 }}>
-          <PassageiroForm onSubmit={submitReserva} isPending={isPending} />
+          <PassageiroForm onSubmit={submitReserva} isPending={isPending} isError={isError} />
         </Grid>
 
         <Grid size={{ xs: 12, md: 5 }}>

@@ -1,4 +1,5 @@
 import App from "@/App";
+import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 import { AppProvider } from "@/providers/AppProvider";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -12,9 +13,11 @@ async function enableMocking() {
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-      <AppProvider>
-        <App />
-      </AppProvider>
+      <ErrorBoundary>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </ErrorBoundary>
     </React.StrictMode>,
   );
 });
