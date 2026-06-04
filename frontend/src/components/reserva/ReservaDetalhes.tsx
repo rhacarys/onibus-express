@@ -23,9 +23,7 @@ export function ReservaDetalhes({ reserva, isCancelando, onCancelar }: ReservaDe
       <Card variant="outlined">
         <CardContent>
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              Detalhes da Passagem
-            </Typography>
+            <Typography variant="h6">Detalhes da Passagem</Typography>
             <Chip
               label={reserva.status.toUpperCase()}
               color={reserva.status === "confirmada" ? "success" : "error"}
@@ -37,27 +35,19 @@ export function ReservaDetalhes({ reserva, isCancelando, onCancelar }: ReservaDe
 
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                Passageiro
-              </Typography>
+              <Typography variant="body2">Passageiro</Typography>
               <Typography variant="body1">{reserva.passageiro.nome}</Typography>
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                CPF
-              </Typography>
+              <Typography variant="body2">CPF</Typography>
               <Typography variant="body1">{reserva.passageiro.cpf}</Typography>
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                ID da Viagem
-              </Typography>
+              <Typography variant="body2">ID da Viagem</Typography>
               <Typography variant="body1">{reserva.viagemId}</Typography>
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                Assento
-              </Typography>
+              <Typography variant="body2">Assento</Typography>
               <Typography variant="body1">Nº {reserva.assento}</Typography>
             </Grid>
           </Grid>

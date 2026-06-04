@@ -2,8 +2,10 @@ import { reservasService } from "@/services/reservasService";
 import { useToastStore } from "@/store/useToastStore";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function useConsultaReserva() {
+  const navigate = useNavigate();
   const [codigoBusca, setCodigoBusca] = useState("");
   const showToast = useToastStore((state) => state.showToast);
   const queryClient = useQueryClient();
@@ -23,6 +25,8 @@ export function useConsultaReserva() {
     onSuccess: () => {
       showToast("Reserva cancelada com sucesso!", "success");
       queryClient.invalidateQueries({ queryKey: ["reserva", codigoBusca] });
+      queryClient.invalidateQueries({ queryKey: ["reservas"] });
+      queryClient.invalidateQueries({ queryKey: ["viagens"] });
     },
     onError: () => {
       showToast("Não foi possível cancelar a reserva.", "error");

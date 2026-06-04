@@ -20,7 +20,7 @@ export function MapaAssentos({
 
   return (
     <Paper variant="outlined" sx={{ p: 3, backgroundColor: (theme) => theme.palette.background.paper }}>
-      <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 3, textAlign: "center", color: "text.secondary" }}>
+      <Typography variant="subtitle1" sx={{ mb: 3, textAlign: "center", color: "text.secondary" }}>
         Frente do Ônibus (Motorista)
       </Typography>
 
@@ -55,7 +55,7 @@ export function MapaAssentos({
                       }
                       disabled={assentosOcupados.includes(numero)}
                       onClick={() => onSelectAssento(numero)}
-                      sx={{ minWidth: "45px", height: "45px", fontWeight: "bold" }}
+                      sx={{ minWidth: "45px", height: "55px", fontWeight: "bold" }}
                     >
                       {numero}
                     </Button>
