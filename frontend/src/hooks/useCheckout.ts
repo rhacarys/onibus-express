@@ -1,6 +1,7 @@
 import { queryClient } from "@/lib/queryClient";
 import { reservasService } from "@/services/reservasService";
 import { useReservaStore } from "@/store/useReservaStore";
+import { useToastStore } from "@/store/useToastStore";
 import type { CriarReservaDTO, Passageiro, Reserva } from "@/types";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
@@ -8,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export function useCheckout() {
   const navigate = useNavigate();
+  const showToast = useToastStore((state) => state.showToast);
   const { viagemId, assentoSelecionado, reset: resetReserva } = useReservaStore();
   const [reservaConfirmada, setReservaConfirmada] = useState<Reserva | null>(null);
 
@@ -25,10 +27,14 @@ export function useCheckout() {
       return reservasService.criarReserva(dto);
     },
     onSuccess: (data) => {
+      showToast("Reserva confirmada com sucesso!", "success");
       setReservaConfirmada(data);
       resetReserva();
       queryClient.invalidateQueries({ queryKey: ["reservas", viagemId] });
       queryClient.invalidateQueries({ queryKey: ["viagens"] });
+    },
+    onError: (_) => {
+      showToast("Erro ao realizar a reserva.", "error");
     },
   });
 
@@ -41,7 +47,6 @@ export function useCheckout() {
     submitReserva: mutation.mutate,
     handleVoltar: () => navigate(-1),
     handleNovaBusca: () => {
-      resetReserva();
       navigate("/");
     },
   };

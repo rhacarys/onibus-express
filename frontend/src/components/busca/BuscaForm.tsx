@@ -12,10 +12,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import type { JSX } from "react";
+import { useEffect, type JSX } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { cidadesService } from "@/services/cidadesService";
+import { useToastStore } from "@/store/useToastStore";
 import type { BuscaFormInput } from "@/types/search";
 import { BuscaFormSchema } from "@/types/search";
 
@@ -24,6 +25,7 @@ interface BuscaFormProps {
 }
 
 export function BuscaForm({ onSearch }: BuscaFormProps): JSX.Element {
+  const showToast = useToastStore((state) => state.showToast);
   const {
     control,
     handleSubmit,
@@ -32,11 +34,20 @@ export function BuscaForm({ onSearch }: BuscaFormProps): JSX.Element {
   } = useForm<BuscaFormInput>({
     resolver: zodResolver(BuscaFormSchema),
   });
-
-  const { data: cidades, isLoading } = useQuery({
+  const {
+    data: cidades,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["cidades"],
     queryFn: cidadesService.getAvailableCidades,
   });
+
+  useEffect(() => {
+    if (isError) {
+      showToast("Erro ao carregar opções de cidades.", "error");
+    }
+  }, [isError]);
 
   if (isLoading) {
     return (

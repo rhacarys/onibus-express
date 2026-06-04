@@ -1,3 +1,4 @@
+import { GlobalSnackbar } from "@/components/ui/GlobalSnackbar";
 import { queryClient } from "@/lib/queryClient";
 import { theme } from "@/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -10,6 +11,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {children}
+        <GlobalSnackbar />
       </ThemeProvider>
     </QueryClientProvider>
   );
