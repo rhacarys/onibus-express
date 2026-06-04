@@ -1,3 +1,7 @@
+import { cidadesService } from "@/services/cidadesService";
+import { useToastStore } from "@/store/useToastStore";
+import type { BuscaFormInput } from "@/types/search";
+import { BuscaFormSchema } from "@/types/search";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search } from "@mui/icons-material";
 import {
@@ -11,14 +15,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 import { useQuery } from "@tanstack/react-query";
+import dayjs from "dayjs";
 import { useEffect, type JSX } from "react";
 import { Controller, useForm } from "react-hook-form";
-
-import { cidadesService } from "@/services/cidadesService";
-import { useToastStore } from "@/store/useToastStore";
-import type { BuscaFormInput } from "@/types/search";
-import { BuscaFormSchema } from "@/types/search";
 
 interface BuscaFormProps {
   onSearch: (data: BuscaFormInput) => void;
@@ -29,7 +30,6 @@ export function BuscaForm({ onSearch }: BuscaFormProps): JSX.Element {
   const {
     control,
     handleSubmit,
-    register,
     formState: { errors },
   } = useForm<BuscaFormInput>({
     resolver: zodResolver(BuscaFormSchema),
@@ -113,14 +113,25 @@ export function BuscaForm({ onSearch }: BuscaFormProps): JSX.Element {
             </Grid>
 
             <Grid size={{ xs: 12, sm: 3 }}>
-              <TextField
-                fullWidth
-                type="date"
-                label="Data de Ida"
-                slotProps={{ inputLabel: { shrink: true } }}
-                error={!!errors.dataIda}
-                helperText={errors.dataIda?.message}
-                {...register("dataIda")}
+              <Controller
+                name="dataIda"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <DatePicker
+                    label="Data de Ida"
+                    value={value ? dayjs(value) : null}
+                    onChange={(date) => onChange(date ? date.format("YYYY-MM-DD") : "")}
+                    format="DD/MM/YYYY"
+                    disablePast
+                    slotProps={{
+                      textField: {
+                        fullWidth: true,
+                        error: !!errors.dataIda,
+                        helperText: errors.dataIda?.message,
+                      },
+                    }}
+                  />
+                )}
               />
             </Grid>
 

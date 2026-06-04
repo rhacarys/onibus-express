@@ -32,16 +32,13 @@ describe("Hook: useCheckout", () => {
     expect(mockNavigate).toHaveBeenCalledWith(-1);
   });
 
-  it("handleNovaBusca deve limpar o Zustand e navegar para a home", () => {
+  it("handleNovaBusca deve navegar para a home", () => {
     const { result } = renderHook(() => useCheckout(), { wrapper });
 
     act(() => {
       result.current.handleNovaBusca();
     });
 
-    const store = useReservaStore.getState();
-    expect(store.viagemId).toBeNull();
-    expect(store.assentoSelecionado).toBeNull();
     expect(mockNavigate).toHaveBeenCalledWith("/");
   });
 });

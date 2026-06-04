@@ -1,11 +1,12 @@
+import type { Passageiro } from "@/types";
+import { PassageiroSchema } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircleOutlined } from "@mui/icons-material";
 import { Alert, Box, Button, Card, CardContent, CircularProgress, Grid, TextField, Typography } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 import type { JSX } from "react";
-import { useForm } from "react-hook-form";
-
-import type { Passageiro } from "@/types";
-import { PassageiroSchema } from "@/types";
+import { Controller, useForm } from "react-hook-form";
 
 interface PassageiroFormProps {
   onSubmit: (data: Passageiro) => void;
@@ -15,6 +16,7 @@ interface PassageiroFormProps {
 
 export function PassageiroForm({ onSubmit, isPending, isError }: PassageiroFormProps): JSX.Element {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -63,15 +65,28 @@ export function PassageiroForm({ onSubmit, isPending, isError }: PassageiroFormP
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <TextField
-                fullWidth
-                type="date"
-                label="Data de Nascimento"
-                disabled={isPending}
-                slotProps={{ inputLabel: { shrink: true } }}
-                error={!!errors.dataNascimento}
-                helperText={errors.dataNascimento?.message}
-                {...register("dataNascimento")}
+              <Controller
+                name="dataNascimento"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <DatePicker
+                    label="Data de Nascimento"
+                    value={value ? dayjs(value) : null}
+                    onChange={(date) => onChange(date ? date.format("YYYY-MM-DD") : "")}
+                    disabled={isPending}
+                    format="DD/MM/YYYY"
+                    views={["year", "month", "day"]}
+                    openTo="year"
+                    disableFuture
+                    slotProps={{
+                      textField: {
+                        fullWidth: true,
+                        error: !!errors.dataNascimento,
+                        helperText: errors.dataNascimento?.message,
+                      },
+                    }}
+                  />
+                )}
               />
             </Grid>
             <Grid size={{ xs: 12 }}>
