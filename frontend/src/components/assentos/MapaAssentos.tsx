@@ -1,7 +1,8 @@
 import { gerarFileirasOnibus } from "@/utils/busLayout";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import type { JSX } from "react";
-import { Fragment } from "react";
+import { Fragment, useCallback } from "react";
+import { AssentoItem } from "./AssentoItem";
 
 interface MapaAssentosProps {
   capacidade: number;
@@ -17,6 +18,13 @@ export function MapaAssentos({
   onSelectAssento,
 }: MapaAssentosProps): JSX.Element {
   const fileiras = gerarFileirasOnibus(capacidade);
+
+  const handleSelectAssento = useCallback(
+    (numero: number) => {
+      onSelectAssento(numero);
+    },
+    [onSelectAssento],
+  );
 
   return (
     <Paper variant="outlined" sx={{ p: 3, backgroundColor: (theme) => theme.palette.background.paper }}>
@@ -52,25 +60,15 @@ export function MapaAssentos({
               const isOcupado = assentosOcupados.includes(numero);
               const isSelecionado = assentoSelecionado === numero;
 
-              let statusAcessibilidade = "Livre";
-              if (isOcupado) statusAcessibilidade = "Ocupado";
-              if (isSelecionado) statusAcessibilidade = "Selecionado";
-
               return (
                 <Fragment key={numero}>
                   {cIdx === 2 && <Box aria-hidden="true" />}
-
-                  <Button
-                    aria-label={`Poltrona ${numero}, ${statusAcessibilidade}`}
-                    aria-pressed={isSelecionado}
-                    variant={isSelecionado ? "contained" : "outlined"}
-                    color={isOcupado ? "inherit" : isSelecionado ? "primary" : "success"}
-                    disabled={isOcupado}
-                    onClick={() => onSelectAssento(numero)}
-                    sx={{ minWidth: "45px", height: "55px", fontWeight: "bold" }}
-                  >
-                    {numero}
-                  </Button>
+                  <AssentoItem
+                    numero={numero}
+                    isOcupado={isOcupado}
+                    isSelecionado={isSelecionado}
+                    onSelect={handleSelectAssento}
+                  />
                 </Fragment>
               );
             })}
@@ -78,7 +76,7 @@ export function MapaAssentos({
         ))}
       </Box>
 
-      {/* Legendas com 'aria-hidden' para evitar redundância nos leitores de ecrã */}
+      {/* Legendas (aria-hidden) */}
       <Box aria-hidden="true" sx={{ display: "flex", justifyContent: "center", gap: 3, mt: 4, flexWrap: "wrap" }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <Box sx={{ width: 16, height: 16, border: "1px solid", borderColor: "success.main", borderRadius: "4px" }} />
