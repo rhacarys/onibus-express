@@ -25,7 +25,7 @@ export function useAssentosPreload() {
     enabled: !!id,
   });
 
-  const assentosOcupados = reservas ? reservas.map((r) => r.assento) : [];
+  const assentosOcupados = reservas ? reservas.filter((r) => r.status !== "cancelada").map((r) => r.assento) : [];
 
   const handleProsseguir = (): void => {
     if (assentoSelecionado) {
