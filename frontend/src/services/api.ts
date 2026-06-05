@@ -1,3 +1,4 @@
+import { queryClient } from "@/lib/queryClient";
 import { useToastStore } from "@/store/useToastStore";
 import axios from "axios";
 
@@ -17,6 +18,9 @@ api.interceptors.response.use(
     if (error.response) {
       const mensagem = error.response.data?.message || `Erro do servidor (${error.response.status}).`;
       showToast(mensagem, "error");
+      if (error.response.status === 409) {
+        queryClient.invalidateQueries({ queryKey: ["viagem", error.response.data?.viagemId] });
+      }
     } else if (error.request) {
       showToast("Servidor indisponível. Verifique sua conexão.", "error");
     } else {
