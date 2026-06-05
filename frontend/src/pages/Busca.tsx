@@ -1,10 +1,12 @@
 import { BuscaForm } from "@/components/busca/BuscaForm";
 import { ViagemCard } from "@/components/busca/ViagemCard";
 import { useBuscaViagens } from "@/hooks/useBuscaViagens";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { Alert, Box, CircularProgress, Stack, Typography } from "@mui/material";
 import type { JSX } from "react";
 
 export default function Busca(): JSX.Element {
+  usePageTitle("Buscar Passagens");
   const { viagens, isLoading, error, isFetched, setFilters, handleSelectViagem } = useBuscaViagens();
 
   return (

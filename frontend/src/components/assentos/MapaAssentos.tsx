@@ -26,6 +26,8 @@ export function MapaAssentos({
 
       {/* Grid com 5 colunas: Poltrona | Poltrona | Corredor | Poltrona | Poltrona */}
       <Box
+        role="group"
+        aria-label="Mapa de assentos do ônibus"
         sx={{
           display: "grid",
           gridTemplateColumns: "repeat(2, 45px) 32px repeat(2, 45px)",
@@ -38,31 +40,37 @@ export function MapaAssentos({
             {fileira.map((numero, cIdx) => {
               const existeAssento = numero <= capacidade;
 
+              if (!existeAssento) {
+                return (
+                  <Fragment key={numero}>
+                    {cIdx === 2 && <Box aria-hidden="true" />}
+                    <Box aria-hidden="true" />
+                  </Fragment>
+                );
+              }
+
+              const isOcupado = assentosOcupados.includes(numero);
+              const isSelecionado = assentoSelecionado === numero;
+
+              let statusAcessibilidade = "Livre";
+              if (isOcupado) statusAcessibilidade = "Ocupado";
+              if (isSelecionado) statusAcessibilidade = "Selecionado";
+
               return (
                 <Fragment key={numero}>
-                  {cIdx === 2 && <Box />}
+                  {cIdx === 2 && <Box aria-hidden="true" />}
 
-                  {existeAssento ? (
-                    <Button
-                      aria-label={`poltrona ${numero}`}
-                      variant={assentoSelecionado === numero ? "contained" : "outlined"}
-                      color={
-                        assentosOcupados.includes(numero)
-                          ? "inherit"
-                          : assentoSelecionado === numero
-                            ? "primary"
-                            : "success"
-                      }
-                      disabled={assentosOcupados.includes(numero)}
-                      onClick={() => onSelectAssento(numero)}
-                      sx={{ minWidth: "45px", height: "55px", fontWeight: "bold" }}
-                    >
-                      {numero}
-                    </Button>
-                  ) : (
-                    // Bloco vazio para fileiras incompletas (ex: 42 ou 46 assentos)
-                    <Box />
-                  )}
+                  <Button
+                    aria-label={`Poltrona ${numero}, ${statusAcessibilidade}`}
+                    aria-pressed={isSelecionado}
+                    variant={isSelecionado ? "contained" : "outlined"}
+                    color={isOcupado ? "inherit" : isSelecionado ? "primary" : "success"}
+                    disabled={isOcupado}
+                    onClick={() => onSelectAssento(numero)}
+                    sx={{ minWidth: "45px", height: "55px", fontWeight: "bold" }}
+                  >
+                    {numero}
+                  </Button>
                 </Fragment>
               );
             })}
@@ -70,8 +78,8 @@ export function MapaAssentos({
         ))}
       </Box>
 
-      {/* Legendas */}
-      <Box sx={{ display: "flex", justifyContent: "center", gap: 3, mt: 4, flexWrap: "wrap" }}>
+      {/* Legendas com 'aria-hidden' para evitar redundância nos leitores de ecrã */}
+      <Box aria-hidden="true" sx={{ display: "flex", justifyContent: "center", gap: 3, mt: 4, flexWrap: "wrap" }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <Box sx={{ width: 16, height: 16, border: "1px solid", borderColor: "success.main", borderRadius: "4px" }} />
           <Typography variant="caption" color="text.secondary">

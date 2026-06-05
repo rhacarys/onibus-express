@@ -1,15 +1,14 @@
-import type { JSX } from "react";
-import { Outlet } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Container, Box, Button } from "@mui/material";
 import { DirectionsBus } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { AppBar, Box, Button, Card, Container, Toolbar, Typography } from "@mui/material";
+import type { JSX } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export function Layout(): JSX.Element {
   const navigate = useNavigate();
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <AppBar position="static">
+      <AppBar component="header" position="static">
         <Toolbar>
           <DirectionsBus sx={{ mr: 2, cursor: "pointer" }} onClick={() => navigate("/")} />
           <Typography
@@ -29,6 +28,21 @@ export function Layout(): JSX.Element {
       <Container component="main" sx={{ mt: 4, mb: 4, flexGrow: 1 }}>
         <Outlet />
       </Container>
+
+      <Card
+        component="footer"
+        sx={{
+          p: 2,
+          textAlign: "center",
+          borderRadius: 0,
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography variant="caption" color="text.secondary">
+            &copy; {new Date().getFullYear()} OniBus Express. Todos os direitos reservados.
+          </Typography>
+        </Container>
+      </Card>
     </Box>
   );
 }

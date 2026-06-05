@@ -11,7 +11,12 @@ const Consulta = lazy(() => import("@/pages/Consulta"));
 const lazyRoute = (Component: React.ComponentType) => (
   <Suspense
     fallback={
-      <Box sx={{ width: "100%", position: "fixed", top: 0, left: 0, zIndex: 1400 }}>
+      <Box
+        role="alert"
+        aria-busy="true"
+        aria-label="Carregando página..."
+        sx={{ width: "100%", position: "fixed", top: 0, left: 0, zIndex: 1400 }}
+      >
         <LinearProgress color="primary" />
       </Box>
     }

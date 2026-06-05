@@ -1,11 +1,13 @@
 import { MapaAssentos } from "@/components/assentos/MapaAssentos";
 import { ViagemResumo } from "@/components/checkout/ViagemResumo";
 import { useAssentosPreload } from "@/hooks/useAssentosPreload";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { ArrowBack, ChevronRight } from "@mui/icons-material";
 import { Alert, Box, Button, CircularProgress, Grid, Stack, Typography } from "@mui/material";
 import type { JSX } from "react";
 
 export default function Assentos(): JSX.Element {
+  usePageTitle("Seleção de Assentos");
   const { viagem, assentosOcupados, assentoSelecionado, isLoading, error, setAssento, handleProsseguir, handleVoltar } =
     useAssentosPreload();
 

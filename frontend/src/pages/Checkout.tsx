@@ -2,6 +2,7 @@ import { PassageiroForm } from "@/components/checkout/PassageiroForm";
 import { SucessoReserva } from "@/components/checkout/SucessoReserva";
 import { ViagemResumo } from "@/components/checkout/ViagemResumo";
 import { useCheckout } from "@/hooks/useCheckout";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { viagensService } from "@/services/viagensService";
 import { ArrowBack } from "@mui/icons-material";
 import { Alert, Box, Button, CircularProgress, Grid, Paper, Stack, Typography } from "@mui/material";
@@ -10,6 +11,7 @@ import type { JSX } from "react";
 import { useEffect } from "react";
 
 export default function Checkout(): JSX.Element {
+  usePageTitle("Finalizar Reserva");
   const {
     viagemId,
     assentoSelecionado,

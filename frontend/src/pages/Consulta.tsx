@@ -1,10 +1,12 @@
 import { ReservaDetalhes } from "@/components/reserva/ReservaDetalhes";
 import { useConsultaReserva } from "@/hooks/useConsultaReserva";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { Search } from "@mui/icons-material";
 import { Box, Button, Card, CardContent, CircularProgress, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
 export default function Consulta() {
+  usePageTitle("Consultar Reserva");
   const [codigoInput, setCodigoInput] = useState("");
   const { reserva, isLoading, isError, codigoBusca, isCancelando, buscarReserva, cancelarReserva } =
     useConsultaReserva();
