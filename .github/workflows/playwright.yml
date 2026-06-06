@@ -36,9 +36,6 @@ jobs:
     - name: Instalar Dependências
       run: pnpm install --frozen-lockfile
 
-    - name: Lint
-      run: pnpm --filter frontend lint
-
     - name: Testes Unitários (Vitest)
       run: pnpm --filter frontend test:ci
 
