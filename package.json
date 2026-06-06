@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm --filter frontend dev",
-    "test": "pnpm --filter frontend test"
+    "test": "pnpm --filter frontend test",
+    "test:e2e": "pnpm --filter frontend test:e2e"
   },
   "keywords": [],
   "author": "",
