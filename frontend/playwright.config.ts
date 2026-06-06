@@ -10,6 +10,7 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:5173",
     trace: "on-first-retry",
+    serviceWorkers: "block",
   },
   projects: [
     {
@@ -30,5 +31,8 @@ export default defineConfig({
     url: "http://localhost:5173",
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
+    env: {
+      VITE_USE_MSW: "false",
+    },
   },
 });

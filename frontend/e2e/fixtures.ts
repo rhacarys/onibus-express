@@ -3,7 +3,7 @@ import { handlers } from "../src/__mocks__/handlers";
 
 export const test = base.extend({
   page: async ({ page }, use) => {
-    await page.route("**/api/v1/**", async (route, request) => {
+    await page.route(/\/api\/v1\/.*/, async (route, request) => {
       const url = new URL(request.url());
       const metodo = request.method();
       let parametrosExtraidos: Record<string, string> = {};
