@@ -10,7 +10,7 @@ interface ViagemCardProps {
 
 export function ViagemCard({ viagem, onSelect }: ViagemCardProps): JSX.Element {
   return (
-    <Card variant="outlined" sx={{ "&:hover": { boxShadow: 2 } }}>
+    <Card variant="outlined" sx={{ "&:hover": { boxShadow: 2 } }} data-testid={`viagem-card-${viagem.id}`}>
       <CardContent>
         <Grid container spacing={2} sx={{ alignItems: "center" }}>
           <Grid size={{ xs: 12, sm: 4 }}>

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 export function useCheckout() {
   const navigate = useNavigate();
   const showToast = useToastStore((state) => state.showToast);
-  const { viagemId, assentoSelecionado, reset: resetReserva } = useReservaStore();
+  const { viagemId, assentoSelecionado } = useReservaStore();
   const [reservaConfirmada, setReservaConfirmada] = useState<Reserva | null>(null);
 
   const mutation = useMutation({
@@ -27,9 +27,7 @@ export function useCheckout() {
       return reservasService.criarReserva(dto);
     },
     onSuccess: (data) => {
-      showToast(`Reserva confirmada com sucesso! Código: ${data.codigoReserva}`, "success");
       setReservaConfirmada(data);
-      resetReserva();
       queryClient.invalidateQueries({ queryKey: ["reservas", viagemId] });
       queryClient.invalidateQueries({ queryKey: ["viagens"] });
     },

@@ -2,12 +2,21 @@ import { reservasService } from "@/services/reservasService";
 import { viagensService } from "@/services/viagensService";
 import { useReservaStore } from "@/store/useReservaStore";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export function useAssentosPreload() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { assentoSelecionado, setAssento } = useReservaStore();
+  const { setViagemId, assentoSelecionado, setAssento } = useReservaStore();
+
+  useEffect(() => {
+    id && setViagemId(id);
+  }, [id]);
+
+  useEffect(() => {
+    setAssento(null);
+  }, []);
 
   const {
     data: viagem,

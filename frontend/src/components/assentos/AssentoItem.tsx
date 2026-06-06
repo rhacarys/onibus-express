@@ -18,7 +18,7 @@ export const AssentoItem = memo(
       <Button
         aria-label={`Poltrona ${numero}, ${statusAcessibilidade}`}
         aria-pressed={isSelecionado}
-        variant={isSelecionado ? "contained" : "outlined"}
+        variant={isSelecionado || isOcupado ? "contained" : "outlined"}
         color={isOcupado ? "inherit" : isSelecionado ? "primary" : "success"}
         disabled={isOcupado}
         onClick={() => onSelect(numero)}

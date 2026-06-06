@@ -27,6 +27,10 @@ export function useBuscaViagens() {
   });
 
   useEffect(() => {
+    setViagemId(null);
+  }, []);
+
+  useEffect(() => {
     if (error) {
       showToast("Não foi possível buscar as viagens disponíveis.", "error");
     }
