@@ -1,0 +1,58 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-build:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 24
+        
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 11
+    - name: Configurar Cache do pnpm
+      id: pnpm-cache
+      shell: bash
+      run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - uses: actions/cache@v4
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Instalar Dependências
+      run: pnpm install --frozen-lockfile
+
+    - name: Lint
+      run: pnpm --filter frontend lint
+
+    - name: Testes Unitários (Vitest)
+      run: pnpm --filter frontend test:ci
+
+    - name: Instalar Navegadores Playwright
+      run: pnpm --filter frontend exec playwright install --with-deps
+
+    - name: Testes E2E (Playwright)
+      env:
+        VITE_USE_MSW: "false"
+      run: pnpm --filter frontend test:e2e
+
+    - uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: playwright-report
+        path: frontend/playwright-report/
+        retention-days: 30
