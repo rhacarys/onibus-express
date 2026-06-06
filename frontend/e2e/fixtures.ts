@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/rules-of-hooks */
 import { test as base, expect } from "@playwright/test";
 import { handlers } from "../src/__mocks__/handlers";
 
@@ -6,7 +8,7 @@ export const test = base.extend({
     await page.route(/\/api\/v1\/.*/, async (route, request) => {
       const url = new URL(request.url());
       const metodo = request.method();
-      let parametrosExtraidos: Record<string, string> = {};
+      const parametrosExtraidos: Record<string, string> = {};
 
       const handlerCorrespondente = handlers.find((handler: any) => {
         const info = handler.info;

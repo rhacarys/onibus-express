@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Layout } from "@/components/ui/Layout";
 import { Box, LinearProgress } from "@mui/material";
 import { lazy, Suspense } from "react";

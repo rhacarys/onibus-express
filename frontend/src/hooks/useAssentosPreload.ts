@@ -11,7 +11,7 @@ export function useAssentosPreload() {
   const { setViagemId, assentoSelecionado, setAssento } = useReservaStore();
 
   useEffect(() => {
-    id && setViagemId(id);
+    if (id) setViagemId(id);
   }, [id]);
 
   useEffect(() => {

@@ -31,7 +31,7 @@ export function useCheckout() {
       queryClient.invalidateQueries({ queryKey: ["reservas", viagemId] });
       queryClient.invalidateQueries({ queryKey: ["viagens"] });
     },
-    onError: (_) => {
+    onError: () => {
       showToast("Erro ao realizar a reserva.", "error");
     },
   });
