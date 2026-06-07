@@ -1,32 +1,54 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# ==========================================
+# 1. Dependências e Gerenciadores de Pacotes
+# ==========================================
+node_modules/
+.pnpm-store/
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# ==========================================
+# 2. Compilação e Artefatos de Build
+# ==========================================
+# Frontend (Vite / React)
+dist/
+dist-ssr/
+build/
+.cache/
+
+# Backend (.NET Core)
+bin/
+obj/
+publish/
+
+# ==========================================
+# 3. Testes, Relatórios e Ferramentas (Playwright / Vitest)
+# ==========================================
+coverage/
+html/
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+.vitest-root/
+*.log
+
+# ==========================================
+# 4. Ambientes, Segredos e Variáveis Locais
+# ==========================================
 *.local
-build
-coverage
-.cache
-test-results
-playwright-report
-blob-report
-playwright/.cache
-playwright/.auth
+*.user
+*.userosscache
+*.sln.docstates
 
-# Editor directories and files
+# ==========================================
+# 5. IDEs, Editores e Arquivos do Sistema
+# ==========================================
+# VS Code (Mantém apenas as recomendações de extensões do time)
 .vscode/*
 !.vscode/extensions.json
-.idea
+
+# Rider / IntelliJ / Visual Studio / OS
+.idea/
 .DS_Store
+Thumbs.db
 *.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+*.user
