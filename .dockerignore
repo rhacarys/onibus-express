@@ -1,0 +1,40 @@
+# ==========================================
+# Dependências e Caches de Gerenciadores de Pacotes
+# ==========================================
+**/node_modules
+**/.pnpm-store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==========================================
+# Builds Anteriores e Caches
+# ==========================================
+**/dist
+**/dist-ssr
+**/build
+**/.cache
+**/bin
+**/obj
+**/publish
+
+# ==========================================
+# Testes e Relatórios
+# ==========================================
+**/coverage
+**/test-results
+**/playwright-report
+**/blob-report
+**/.playwright
+
+# ==========================================
+# Variáveis e Arquivos de Sistema
+# ==========================================
+.git
+.idea
+.vscode
+.DS_Store
+*.local
+**/.env
+!**/.env.example

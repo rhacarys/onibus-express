@@ -3,7 +3,7 @@ import { useToastStore } from "@/store/useToastStore";
 import axios from "axios";
 
 const apiUrl =
-  import.meta.env.VITE_USE_MSW === "true" ? "/" : import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+  import.meta.env.VITE_USE_MSW === "true" ? "" : import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
 export const api = axios.create({
   baseURL: `${apiUrl}/api/v1`,

@@ -7,13 +7,11 @@ services:
       dockerfile: Dockerfile
     container_name: onibus-express-backend
     ports:
-      - "3000:3000"
-    volumes:
-      - ./backend/db.json:/app/db.json
+      - "5000:5000"
     networks:
       - onibus-rede
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5000/swagger/index.html"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -29,7 +27,8 @@ services:
       backend:
         condition: service_healthy
     environment:
-      - VITE_API_URL=http://localhost:3000
+      - VITE_API_BASE_URL=http://localhost:5000
+      - VITE_USE_MSW=false
     networks:
       - onibus-rede
 
