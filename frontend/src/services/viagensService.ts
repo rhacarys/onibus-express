@@ -6,7 +6,7 @@ export const viagensService = {
     const params = new URLSearchParams();
     if (origem) params.append("origem", origem);
     if (destino) params.append("destino", destino);
-    if (dataIda) params.append("dataPartida", dataIda);
+    if (dataIda) params.append("data", dataIda);
 
     return httpClient.get<ViagemDetalhada[]>("/viagens", { params });
   },

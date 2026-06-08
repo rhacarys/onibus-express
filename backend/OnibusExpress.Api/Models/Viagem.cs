@@ -4,10 +4,10 @@ public class Viagem
 {
     public string Id { get; set; } = string.Empty;
     public string RotaId { get; set; } = string.Empty;
-    public DateTime DataHoraPartida { get; set; }
+    public DateTime Data { get; set; }
     public decimal Preco { get; set; }
     public int Capacidade { get; set; }
-    public List<int> AssentosOcupados { get; set; } = new();
+    public int AssentosDisponiveis { get; set; }
 }
 
 public class ViagemDetalhada : Viagem

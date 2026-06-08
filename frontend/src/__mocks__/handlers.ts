@@ -35,12 +35,12 @@ export const handlers = [
     const url = new URL(request.url);
     const origem = url.searchParams.get("origem")?.toLowerCase();
     const destino = url.searchParams.get("destino")?.toLowerCase();
-    const dataPartida = url.searchParams.get("dataPartida");
+    const data = url.searchParams.get("data");
 
     const resultado: ViagemDetalhada[] = viagensTemplate
       .map((v) => {
         const rotaCompleta = rotas.find((r) => r.id === v.rotaId)!;
-        const dataPartidaSimulada = dataPartida ? `${dataPartida}T${v.horaPartida}` : `2026-06-03T${v.horaPartida}`;
+        const dataSimulada = data ? `${data}T${v.horaPartida}` : `2026-06-03T${v.horaPartida}`;
 
         const assentosOcupadosCount = reservas.filter((r) => r.viagemId === v.id && r.status === "confirmada").length;
 
@@ -50,7 +50,7 @@ export const handlers = [
           preco: v.preco,
           capacidade: v.capacidade,
           assentosDisponiveis: v.capacidade - assentosOcupadosCount,
-          dataPartida: dataPartidaSimulada,
+          data: dataSimulada,
           rota: rotaCompleta,
         };
       })
@@ -78,7 +78,7 @@ export const handlers = [
       preco: template.preco,
       capacidade: template.capacidade,
       assentosDisponiveis: template.capacidade - assentosOcupadosCount,
-      dataPartida: `2026-06-15T${template.horaPartida}`,
+      data: `2026-06-15T${template.horaPartida}`,
       rota,
     });
   }),

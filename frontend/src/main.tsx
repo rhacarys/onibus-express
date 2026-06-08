@@ -8,7 +8,6 @@ import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 
 async function enableMocking() {
-  console.log("ENV var", import.meta.env.VITE_USE_MSW);
   if (import.meta.env.VITE_USE_MSW !== "true") return;
   const { worker } = await import("./__mocks__/browser");
   return worker.start({ onUnhandledRequest: "bypass" });

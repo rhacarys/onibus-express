@@ -21,7 +21,7 @@ export function ViagemResumo({ viagem }: ViagemResumoProps): JSX.Element {
         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1.5, color: "text.secondary" }}>
           <Event fontSize="small" />
           <Typography variant="body2">
-            {new Date(viagem.dataPartida).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })}
+            {new Date(viagem.data).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })}
           </Typography>
         </Box>
 

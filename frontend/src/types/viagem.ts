@@ -10,7 +10,7 @@ export const RotaSchema = z.object({
 export const ViagemSchema = z.object({
   id: z.string(),
   rotaId: z.string(),
-  dataPartida: z.iso.datetime(),
+  data: z.iso.datetime(),
   preco: z.number().positive(),
   capacidade: z.number().int().positive(),
   assentosDisponiveis: z.number().int().nonnegative(),

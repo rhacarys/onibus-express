@@ -19,7 +19,7 @@ export function ViagemCard({ viagem, onSelect }: ViagemCardProps): JSX.Element {
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
               <Event fontSize="small" />
-              {new Date(viagem.dataPartida).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })}
+              {new Date(viagem.data).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })}
             </Typography>
           </Grid>
           <Grid size={{ xs: 6, sm: 3 }}>
