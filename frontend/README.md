@@ -110,8 +110,6 @@ docker-compose up --build
 
 ```
 
-*O frontend aguardará o healthcheck positivo do backend (`http://localhost:3000`) antes de liberar a porta `80` para navegação.*
-
 ---
 
 ## 🔄 Esteira de CI/CD (GitHub Actions)
